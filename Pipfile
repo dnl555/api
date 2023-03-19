@@ -1,0 +1,41 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+fastapi = "*"
+uvicorn = "*"
+tqdm = "*"
+boto3 = "*"
+plotly = "*"
+scikit-learn = "*"
+pyarrow = "*"
+psycopg2 = "*"
+asyncpg = "*"
+sqlalchemy = "*"
+fastapi-async-sqlalchemy = "*"
+pydantic = "*"
+pyomo = "*"
+requests = "*"
+pytest = "*"
+lxml = "*"
+redis = "*"
+objgraph = "*"
+huey = "*"
+datadog = "*"
+ddtrace = "*"
+gunicorn = "*"
+watchtower = "*"
+
+[dev-packages]
+black = "==21.6b0"
+pytest-cov = "*"
+vcrpy = "*"
+isort = "*"
+autopep8 = "*"
+pycodestyle = "*"
+jsonpath-ng = "*"
+
+[requires]
+python_version = "3.8"
