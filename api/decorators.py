@@ -24,6 +24,13 @@ def validate_username_and_dateofbirth(func):
                 status_code=status.HTTP_400_BAD_REQUEST,
             )
 
+        # dateofbirth must be string
+        if not isinstance(kwargs["payload"]["dateOfBirth"], str):
+            return JSONResponse(
+                content={"error_msg": "dateOfBirth must be string"},
+                status_code=status.HTTP_400_BAD_REQUEST,
+            )
+
         # dateofbirth must be in the format YYYY-MM-DD
         try:
             datetime.strptime(kwargs["payload"]["dateOfBirth"], "%Y-%m-%d")
