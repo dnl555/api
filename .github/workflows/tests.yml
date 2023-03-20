@@ -32,18 +32,6 @@ jobs:
       - name: Install pipenv
         run: pip install pipenv
 
-      - name: Setup Database
-        env:
-          RAILS_ENV: test
-          POSTGRES_HOST: localhost
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
-        run: |
-          cp config/database.yml.ci config/database.yml
-          bundle exec rails db:create
-          bundle exec rails db:schema:load
-
       - name: Run tests
         env:
           POSTGRES_USER: postgres
