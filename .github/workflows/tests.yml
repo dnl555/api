@@ -44,4 +44,7 @@ jobs:
 
         run: |
           pipenv install --dev
-          pipenv run pytest
+          pipenv shell
+          python tests_setup_db.lpy
+          pytest -vvv
+          # pipenv run pytest
