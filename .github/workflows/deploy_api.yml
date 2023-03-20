@@ -1,9 +1,13 @@
-name: PROD - Deploy API
-on: [workflow_dispatch]
+name: Deploy API
+
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   deploy_web:
-    name: PROD - Deploy API
+    name: Deploy API
     runs-on: ubuntu-latest
 
     steps:
