@@ -32,6 +32,18 @@ jobs:
       - name: Install pipenv
         run: pip install pipenv
 
+      - name: Setup Database
+        env:
+          RAILS_ENV: test
+          POSTGRES_HOST: localhost
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
+        run: |
+          cp config/database.yml.ci config/database.yml
+          bundle exec rails db:create
+          bundle exec rails db:schema:load
+
       - name: Run tests
         env:
           POSTGRES_USER: postgres
@@ -43,6 +55,8 @@ jobs:
           LOG_LEVEL: DEBUG
 
         run: |
+          pip install sqlalchemy
+          pip install psycopg2
+          python tests_setup_db.py
           pipenv install --dev
-          pipenv run 'bash ./tests_setup_db.sh'
           pipenv run pytest
