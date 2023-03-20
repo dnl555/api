@@ -9,11 +9,11 @@ jobs:
   test:
     runs-on: ubuntu-latest
     services:
-      postgres:
+      db:
         image: postgres:12-alpine
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_PASSWORD: superdbpassword
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -28,6 +28,19 @@ jobs:
         with:
           python-version: 3.8
 
+      - name: Install pipenv
+        run: pip install pipenv
+
       - name: Run tests
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: superdbpassword
+          POSTGRES_DB: app_development
+          POSTGRES_PORT: 5432
+          POSTGRES_SERVER: db
+          API_AUTH_TOKEN: fake-token
+          LOG_LEVEL: DEBUG
+
         run: |
+          pipenv install --dev
           pipenv run pytest
