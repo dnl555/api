@@ -10,6 +10,7 @@ asyncpg = "*"
 sqlalchemy = "*"
 fastapi-async-sqlalchemy = "*"
 pytest = "*"
+psycopg2 = "*"
 gunicorn = "*"
 
 [dev-packages]
