@@ -1,1 +1,0 @@
-python tests_setup_db.py

@@ -1,20 +1,39 @@
 from fastapi.testclient import TestClient
 from api.hello import router
+from datetime import date, datetime
+
 
 client = TestClient(router)
 
 
+today_date = date.today().replace(year=1900).strftime("%Y-%m-%d")
+
+
 def test_hello():
+
+    date_provided = "1986-01-15"
     response = client.put(
         "/hello/testuser",
-        json={"dateOfBirth": "1986-09-15"},
+        json={"dateOfBirth": date_provided},
     )
     assert response.status_code == 204
 
+    today = date.today()
+    birthday = (
+        datetime.strptime(date_provided, "%Y-%m-%d").date().replace(year=today.year)
+    )
+
+    # birthday for testuser already passed this year
+    birthday = birthday.replace(year=today.year + 1)
+
+    days = (birthday - today).days
+
     response = client.get("/hello/testuser")
+
     assert response.status_code == 200
+
     assert response.json() == {
-        "message": "Hello, testuser! Your birthday is in 180 day(s)"
+        "message": f"Hello, testuser! Your birthday is in {days} day(s)"
     }
 
 
