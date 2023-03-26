@@ -1,4 +1,4 @@
-# api, FastAPI basic scheleton for super fun API requests
+# api, FastAPI basic skeleton for super fun API requests
 
 # test in dev: 
 ```docker-compose up```
